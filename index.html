@@ -1,0 +1,393 @@
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<title>IT3160 Luyện trắc nghiệm</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<script>
+try{var _s=JSON.parse(localStorage.getItem('it3160_quiz_v1'));if(_s&&_s.settings&&_s.settings.theme&&_s.settings.theme!=='auto')document.documentElement.dataset.theme=_s.settings.theme;}catch(e){}
+</script>
+<div class="app" id="app" data-view="home">
+<header class="topbar" id="topbar">
+  <div class="brand">
+    <span class="brand-code">IT3160</span>
+    <span class="brand-text">
+      <span class="brand-title">Luyện trắc nghiệm</span>
+      <span class="brand-sub">Nhập môn Trí tuệ nhân tạo</span>
+    </span>
+  </div>
+  <button class="icon-btn" id="theme-btn" type="button" aria-label="Đổi giao diện">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor" stroke="none"/>
+    </svg>
+  </button>
+</header>
+
+<main>
+<section class="view" id="view-home">
+  <div class="hero">
+    <p class="eyebrow">Ôn thi · 7 bài · <span id="total-count">0</span> câu</p>
+    <h1>Ôn tập theo từng bài.</h1>
+    <p class="lede">Câu hỏi từ đề cương Ch1–Ch3, bổ sung cho L8 – Biểu diễn tri thức. Chọn đáp án, nhận giải thích ngay.</p>
+  </div>
+
+  <div class="stats-strip" aria-label="Tiến độ tổng quan">
+    <div class="stat"><span class="stat-num" id="stat-done">0</span><span class="stat-label">câu đã làm</span></div>
+    <div class="stat"><span class="stat-num" id="stat-acc">0%</span><span class="stat-label">trả lời đúng</span></div>
+    <div class="stat"><span class="stat-num" id="stat-wrong">0</span><span class="stat-label">câu đang sai</span></div>
+  </div>
+
+  <section class="promo">
+    <p class="promo-kicker">Bắt đầu nhanh</p>
+    <h2>Mười câu, mỗi lần một hiệp.</h2>
+    <p>Trộn đều các bài, ưu tiên câu chưa làm. Có phản hồi và giải thích ngay sau mỗi câu.</p>
+    <div class="promo-actions">
+      <button class="btn btn-accent" type="button" data-mode="quick">Luyện 10 câu</button>
+      <button class="btn btn-ghost-on-dark" type="button" data-mode="exam">Thi thử 20 câu</button>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Luyện theo bài</h2><span class="section-meta">Chọn một bài để bắt đầu</span></div>
+    <div class="list-panel" id="topic-list"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Bộ sưu tập</h2><span class="section-meta">Ôn lại chỗ yếu</span></div>
+    <div class="collection-grid">
+      <button class="collection" type="button" data-mode="wrong">
+        <span class="collection-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 8v5"/><circle cx="12" cy="16.5" r=".8" fill="currentColor" stroke="none"/><path d="M10.3 4.3 3.6 16a1.6 1.6 0 0 0 1.4 2.4h14a1.6 1.6 0 0 0 1.4-2.4L13.7 4.3a1.6 1.6 0 0 0-2.8 0Z"/></svg>
+        </span>
+        <span class="collection-body"><span class="collection-title">Câu sai</span><span class="collection-sub" id="wrong-count-label">0 câu cần ôn lại</span></span>
+      </button>
+      <button class="collection" type="button" data-mode="marked">
+        <span class="collection-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3.8 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8Z"/></svg>
+        </span>
+        <span class="collection-body"><span class="collection-title">Đánh dấu</span><span class="collection-sub" id="marked-count-label">0 câu</span></span>
+      </button>
+    </div>
+  </section>
+
+  <button class="theory-link" type="button" data-view-target="theory">
+    <div>
+      <span class="theory-kicker">Trước khi làm bài</span>
+      <span class="theory-title">Xem lý thuyết trọng tâm</span>
+      <span class="theory-sub">Tóm tắt 7 bài, bảng so sánh thuật toán, công thức cần nhớ.</span>
+    </div>
+    <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+</section>
+
+<section class="view" id="view-quiz" hidden>
+  <div class="quiz-top">
+    <button class="icon-btn" id="quiz-exit" type="button" aria-label="Thoát bài luyện">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>
+    </button>
+    <div class="quiz-meta">
+      <span class="quiz-topic" id="quiz-topic">Luyện tập</span>
+      <span class="quiz-count" id="quiz-count">Câu 1/10</span>
+    </div>
+    <div class="quiz-top-right">
+      <span class="timer" id="quiz-timer" hidden>20:00</span>
+      <button class="icon-btn" id="quiz-mark" type="button" aria-label="Đánh dấu câu hỏi" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3.8 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8Z"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="quiz-progress"></div></div>
+  <div class="quiz-body">
+    <span class="chip" id="quiz-chip">Một đáp án</span>
+    <h2 class="question" id="quiz-question"></h2>
+    <div class="options" id="quiz-options"></div>
+    <div class="feedback" id="quiz-feedback" hidden aria-live="polite"></div>
+  </div>
+  <div class="quiz-actions">
+    <div class="action-inner">
+      <p class="hint" id="quiz-hint"></p>
+      <button class="btn btn-primary" id="quiz-action" type="button">Kiểm tra</button>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-result" hidden>
+  <div class="result-head">
+    <p class="eyebrow">Kết quả</p>
+    <h1 id="result-title">Kết quả bài luyện</h1>
+    <p class="lede" id="result-sub"></p>
+  </div>
+
+  <div class="score-card">
+    <div class="score-ring">
+      <svg viewBox="0 0 128 128" aria-hidden="true">
+        <circle class="ring-track" cx="64" cy="64" r="54"/>
+        <circle class="ring-fill" id="ring-fill" cx="64" cy="64" r="54"/>
+      </svg>
+      <div class="score-center"><span id="result-percent">0%</span><span>chính xác</span></div>
+    </div>
+    <div class="score-stats">
+      <div><b id="result-correct">0/0</b><span>câu đúng</span></div>
+      <div><b id="result-time">0:00</b><span>thời gian</span></div>
+      <div><b id="result-wrong">0</b><span>câu sai</span></div>
+    </div>
+  </div>
+
+  <section class="section" id="result-topic-section">
+    <div class="section-head"><h2>Theo bài</h2><span class="section-meta">Độ chính xác trong phiên này</span></div>
+    <div class="bars" id="result-bars"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Câu cần xem lại</h2><span class="section-meta" id="result-review-count"></span></div>
+    <div class="review-list" id="result-review"></div>
+  </section>
+
+  <div class="result-actions">
+    <button class="btn btn-primary" id="retry-wrong" type="button">Luyện lại câu sai</button>
+    <button class="btn btn-secondary" id="result-home" type="button">Về trang chủ</button>
+  </div>
+</section>
+
+<section class="view" id="view-theory" hidden>
+  <div class="page-head">
+    <p class="eyebrow">Ôn nhanh</p>
+    <h1>Lý thuyết trọng tâm</h1>
+    <p class="lede">Bảy bài đã học, tóm theo đúng phạm vi ôn: L1–L6 và L8. Mở từng bài để xem ý chính và bảng so sánh.</p>
+  </div>
+
+  <div class="theory-list">
+    <details class="theory-card" open>
+      <summary>
+        <span class="topic-code">L1</span>
+        <span class="summary-text"><span class="summary-title">Giới thiệu TTNT</span><span class="summary-sub">4 quan điểm · Turing · lịch sử</span></span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </summary>
+      <div class="theory-body">
+        <ul>
+          <li><strong>4 quan điểm:</strong> suy nghĩ như người · suy nghĩ hợp lý · hành động như người · <strong>hành động hợp lý</strong> (hướng chủ đạo hiện nay).</li>
+          <li><strong>Turing 1950:</strong> Imitation Game đánh giá hành vi hội thoại; 4 năng lực nền: xử lý ngôn ngữ tự nhiên, biểu diễn tri thức, lý luận tự động, học máy.</li>
+          <li><strong>Mốc chính:</strong> 1943 McCulloch–Pitts; 1950 Turing; 1956 Dartmouth; 1952–69 chương trình đầu (Samuel, Logic Theorist, GPS); 1965 Robinson resolution.</li>
+          <li><strong>Mùa đông AI:</strong> lần 1 (đầu thập niên 1970 — slide ghi 1966–1973, bản tóm tắt ghi 1974–1980); lần 2 (1987–1993). Nguyên nhân: kỳ vọng vượt hạ tầng, độ phức tạp tính toán, chi phí dữ liệu, dự án lớn thất bại.</li>
+          <li><strong>Bùng nổ:</strong> 1980–88 hệ chuyên gia; 1986 back-propagation; 1997 Deep Blue; 2011 Watson; 2012 GoogleBrain; 2014 GAN; 2016 AlphaGo; 2018 Alibaba vượt người ở bài đọc hiểu Stanford.</li>
+          <li><strong>Lĩnh vực:</strong> học máy/học sâu, thị giác máy tính, NLP và tiếng nói, lập luận và suy diễn, robot.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="theory-card">
+      <summary>
+        <span class="topic-code">L2</span>
+        <span class="summary-text"><span class="summary-title">Tác tử thông minh</span><span class="summary-sub">PEAS · môi trường · kiến trúc</span></span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </summary>
+      <div class="theory-body">
+        <ul>
+          <li><strong>Tác tử:</strong> cảm nhận môi trường qua sensors, tác động lại qua actuators. Hàm tác tử <code>f: P* → A</code>; chương trình tác tử là bản cài đặt.</li>
+          <li><strong>Tác tử hợp lý:</strong> chọn hành động tối đa hóa thước đo hiệu quả dựa trên chuỗi nhận thức và tri thức. Hợp lý ≠ thông suốt mọi thứ; tự trị = học và thích nghi.</li>
+          <li><strong>PEAS:</strong> Performance, Environment, Actuators, Sensors. Ví dụ taxi tự lái: an toàn/nhanh/đúng luật; đường/phương tiện/khách; bánh lái/ga/phanh; camera/GPS/cảm biến.</li>
+          <li><strong>Môi trường:</strong> quan sát đầy đủ – một phần; xác định – ngẫu nhiên – chiến lược; phân đoạn – liên tiếp; tĩnh – động – bán động; rời rạc – liên tục; đơn – đa tác tử; cộng tác – cạnh tranh.</li>
+          <li><strong>4 kiểu tác tử:</strong> phản xạ đơn giản (luật hiện tại) · phản xạ dựa trên mô hình (trạng thái nội bộ) · dựa trên mục tiêu (lập kế hoạch) · dựa trên lợi ích (hàm utility).</li>
+          <li><strong>Tác tử học:</strong> performance element · critic · learning element · problem generator.</li>
+          <li><strong>Tác tử dựa trên KB:</strong> lưu tri thức dạng mệnh đề hình thức, cập nhật và suy luận trên KB để chọn hành động.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="theory-card">
+      <summary>
+        <span class="topic-code">L3</span>
+        <span class="summary-text"><span class="summary-title">Tìm kiếm cơ bản</span><span class="summary-sub">BFS · UCS · DFS · DLS · IDS</span></span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </summary>
+      <div class="theory-body">
+        <ul>
+          <li><strong>Chu trình:</strong> xác định mục tiêu → phát biểu bài toán → tìm kiếm → thực thi chuỗi hành động.</li>
+          <li><strong>Bài toán trạng thái đơn:</strong> trạng thái đầu · hàm chuyển trạng thái · kiểm tra mục tiêu · chi phí đường đi. Lời giải = chuỗi hành động; tối ưu = chi phí nhỏ nhất.</li>
+          <li><strong>Khái quát hóa:</strong> trạng thái/hành động khái quát đại diện tập trạng thái/hành động thực tế; mọi trạng thái thực phải còn liên thông.</li>
+          <li><strong>Cây tìm kiếm:</strong> state ≠ node; node lưu state, cha, hành động, độ sâu, g(x). Fringe = nút chờ mở rộng; closed = nút đã mở rộng; Expand dùng Successor-Fn.</li>
+          <li><strong>Tiêu chí:</strong> hoàn chỉnh · thời gian (số nút sinh ra) · bộ nhớ · tối ưu. Tham số: b (phân nhánh), d (độ sâu lời giải tối ưu), m (độ sâu tối đa, có thể ∞).</li>
+          <li><strong>Cài đặt:</strong> BFS dùng FIFO; UCS dùng hàng đợi ưu tiên theo g(n); DFS dùng LIFO; DLS = DFS + giới hạn l; IDS lặp DLS với l = 0, 1, 2…</li>
+        </ul>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tiêu chí</th><th>BFS</th><th>UCS</th><th>DFS</th><th>DLS</th><th>IDS</th></tr></thead>
+            <tbody>
+              <tr><td>Hoàn chỉnh</td><td>Có (b hữu hạn)</td><td>Có (chi phí ≥ ε)</td><td>Không</td><td>Không</td><td>Có</td></tr>
+              <tr><td>Thời gian</td><td>O(b<sup>d+1</sup>)</td><td>O(b<sup>C*/ε</sup>)</td><td>O(b<sup>m</sup>)</td><td>O(b<sup>l</sup>)</td><td>O(b<sup>d+1</sup>)</td></tr>
+              <tr><td>Bộ nhớ</td><td>O(b<sup>d+1</sup>)</td><td>O(b<sup>C*/ε</sup>)</td><td>O(bm)</td><td>O(bl)</td><td>O(bd)</td></tr>
+              <tr><td>Tối ưu</td><td>Có (chi phí = 1)</td><td>Có</td><td>Không</td><td>Không</td><td>Có (chi phí = 1)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="formula">IDS sinh lại tầng nông chỉ tốn thêm ~11% khi b = 10, d = 5.</p>
+      </div>
+    </details>
+
+    <details class="theory-card">
+      <summary>
+        <span class="topic-code">L4</span>
+        <span class="summary-text"><span class="summary-title">Tìm kiếm có tri thức bổ sung</span><span class="summary-sub">Heuristic · A* · cục bộ · GA</span></span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </summary>
+      <div class="theory-body">
+        <ul>
+          <li><strong>Heuristic h(n):</strong> ước lượng chi phí từ n tới đích, <code>h(n) ≥ 0</code> và <code>h(đích) = 0</code>. Best-first dùng f(n) và hàng đợi ưu tiên.</li>
+          <li><strong>Greedy:</strong> <code>f(n) = h(n)</code>. Nhanh nhưng không hoàn chỉnh (dễ lặp) và không tối ưu vì bỏ qua g(n).</li>
+          <li><strong>A*:</strong> <code>f(n) = g(n) + h(n)</code>. Nếu h chấp nhận được (<code>0 ≤ h(n) ≤ h*(n)</code>) thì TREE-SEARCH tối ưu; nếu h kiên định (<code>h(n) ≤ c(n,a,n') + h(n')</code>) thì GRAPH-SEARCH tối ưu.</li>
+          <li><strong>Ưu thế heuristic:</strong> h2 trội hơn h1 nếu <code>h*(n) ≥ h2(n) ≥ h1(n)</code> với mọi n; A* mở rộng ít nút hơn. 8-puzzle: h1 = số ô sai vị trí, h2 = tổng khoảng cách Manhattan.</li>
+          <li><strong>Thực nghiệm 8-puzzle (d = 12):</strong> IDS 3.644.035 nút; A* với h1 227 nút; A* với h2 73 nút.</li>
+          <li><strong>Tìm kiếm cục bộ:</strong> chỉ lưu trạng thái hiện tại, không lưu đường đi. Leo đồi dễ kẹt local maxima; tôi thép chấp nhận bước tồi với xác suất giảm theo nhiệt độ T; local beam giữ k trạng thái; GA dùng quần thể, fitness, reproduction/crossover/mutation.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="theory-card">
+      <summary>
+        <span class="topic-code">L5</span>
+        <span class="summary-text"><span class="summary-title">Tìm kiếm đối kháng</span><span class="summary-sub">Minimax · Alpha–Beta</span></span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </summary>
+      <div class="theory-body">
+        <ul>
+          <li><strong>Bài toán trò chơi:</strong> trạng thái bắt đầu · hàm chuyển trạng thái · kiểm tra kết thúc · hàm tiện ích; trò chơi zero-sum, xác định, thông tin đầy đủ.</li>
+          <li><strong>Minimax:</strong> MAX chọn nước cực đại, MIN chọn nước cực tiểu; lan giá trị đệ quy từ lá lên gốc với giả định đối thủ đi tối ưu.</li>
+          <li><strong>Độ phức tạp:</strong> thời gian O(b<sup>m</sup>), bộ nhớ O(bm). Cờ vua b ≈ 35, m ≈ 100 → không thể duyệt vét cạn.</li>
+          <li><strong>Alpha–Beta:</strong> α = nước tốt nhất của MAX, β = nước tốt nhất của MIN; cắt nhánh khi α ≥ β. Không làm thay đổi kết quả; nếu thứ tự nước đi tối ưu, thời gian còn O(b<sup>m/2</sup>).</li>
+          <li><strong>Với trò chơi lớn:</strong> vẫn cần heuristic đánh giá trạng thái và giới hạn độ sâu tìm kiếm.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="theory-card">
+      <summary>
+        <span class="topic-code">L6</span>
+        <span class="summary-text"><span class="summary-title">Thỏa mãn ràng buộc</span><span class="summary-sub">Backtracking · AC-3 · min-conflicts</span></span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </summary>
+      <div class="theory-body">
+        <ul>
+          <li><strong>CSP:</strong> bộ ba <code>⟨X, D, C⟩</code>; lời giải là phép gán đầy đủ và hợp lệ. Đồ thị ràng buộc: nút = biến, cạnh = ràng buộc nhị phân. Ràng buộc đơn / nhị phân / bậc cao.</li>
+          <li><strong>Backtracking:</strong> DFS, gán từng biến một, kiểm tra ràng buộc ngay và quay lui khi vi phạm. Tính giao hoán giúp hệ số phân nhánh ở tầng i chỉ còn |D<sub>i</sub>|.</li>
+          <li><strong>Chọn biến:</strong> MRV (ít giá trị hợp lệ còn lại nhất), Degree Heuristic (nhiều ràng buộc nhất với biến chưa gán) để phá hòa.</li>
+          <li><strong>Chọn giá trị:</strong> LCV (ít làm giảm miền giá trị của biến kề nhất) — chỉ hữu ích khi cần một lời giải, không giúp khi tìm tất cả lời giải.</li>
+          <li><strong>Forward Checking:</strong> sau khi gán X = v, xóa v khỏi miền các biến chưa gán kề X; nếu miền rỗng thì quay lui ngay. Chỉ đảm bảo nhất quán cục bộ.</li>
+          <li><strong>Arc Consistency / AC-3:</strong> cung Xi → Xj phù hợp nếu mọi x ∈ D<sub>Xi</sub> có y ∈ D<sub>Xj</sub> thỏa ràng buộc. AC-3 lan truyền bằng hàng đợi, độ phức tạp O(c·d<sup>3</sup>), mạnh hơn FC.</li>
+          <li><strong>Min-conflicts:</strong> bắt đầu từ phép gán đầy đủ, chọn biến đang vi phạm và gán giá trị ít xung đột nhất; rất hiệu quả với N-hậu lớn (N = 1.000.000).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="theory-card">
+      <summary>
+        <span class="topic-code">L8</span>
+        <span class="summary-text"><span class="summary-title">Biểu diễn tri thức</span><span class="summary-sub">Luật · khung · mạng ngữ nghĩa · ontology</span></span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </summary>
+      <div class="theory-body">
+        <ul>
+          <li><strong>Dữ liệu – Thông tin – Tri thức:</strong> sự kiện/ký hiệu thô → dữ liệu đã xử lý, có cấu trúc → sự hiểu biết có ngữ cảnh, dùng để giải quyết vấn đề.</li>
+          <li><strong>Tiêu chí biểu diễn:</strong> tính hoàn chỉnh · tính ngắn gọn · hiệu quả tính toán · tính rõ ràng, dễ hiểu. Phương pháp: luật, khung, mạng ngữ nghĩa, ontology, mô hình xác suất.</li>
+          <li><strong>Luật sản xuất:</strong> <code>IF A1 AND … AND An THEN B</code>. OR ở điều kiện tách thành nhiều luật; AND ở kết luận tách thành nhiều luật; kết luận không dùng OR. Đồ thị AND/OR thể hiện cấu trúc luật.</li>
+          <li><strong>Vấn đề của luật:</strong> vòng lặp, mâu thuẫn, kết luận không suy ra được, khó cập nhật. Suy diễn dùng pattern matching; xung đột xảy ra khi nhiều luật cùng áp dụng, cần chiến lược giải quyết xung đột.</li>
+          <li><strong>Hệ RBS:</strong> working memory (sự kiện) · rule memory (luật) · interpreter (so khớp và áp dụng luật). Ưu: gần ngôn ngữ tự nhiên, khai báo, dễ hiểu. Nhược: hạn chế biểu diễn, khó bảo trì do tương tác luật, tốn kém.</li>
+          <li><strong>Khung:</strong> bộ ba (Object, Property, Value); khung cụ thể dùng INSTANCE-OF, khung tổng quát dùng IS-A; slot/filler; kế thừa; thủ tục IF-NEEDED và IF-ADDED. Ưu: kết hợp khai báo + thủ tục, phân cấp, kế thừa.</li>
+          <li><strong>Mạng ngữ nghĩa:</strong> Quillian 1966; nút = khái niệm/hành động/đối tượng, cung = quan hệ có nhãn, có hướng; liên kết kế thừa (IS-A, INSTANCE-OF) và liên kết miền (HAS, CAUSES…); lan truyền tác động; kế thừa toàn bộ hoặc mặc định. Nhược: ngữ nghĩa không chuẩn tắc, khó biểu diễn phủ định/tuyển.</li>
+          <li><strong>Ontology:</strong> đặc tả hình thức, rõ ràng về các khái niệm; từ vựng dùng chung cho một lĩnh vực. Quy trình: phạm vi/mục đích → tái sử dụng → liệt kê khái niệm → phân loại → thuộc tính → ràng buộc → instances → kiểm tra bất thường. Ví dụ: CYC, SENSUS, SUMO, UMLS, WordNet.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="view" id="view-progress" hidden>
+  <div class="page-head">
+    <p class="eyebrow">Theo dõi</p>
+    <h1>Tiến độ của bạn</h1>
+    <p class="lede">Tất cả số liệu lưu trên trình duyệt này. Đổi thiết bị hoặc xóa dữ liệu trang sẽ mất tiến độ.</p>
+  </div>
+
+  <div class="stats-strip four" aria-label="Thống kê tổng quan">
+    <div class="stat"><span class="stat-num" id="p-seen">0</span><span class="stat-label">câu đã làm</span></div>
+    <div class="stat"><span class="stat-num" id="p-attempts">0</span><span class="stat-label">lượt trả lời</span></div>
+    <div class="stat"><span class="stat-num" id="p-acc">0%</span><span class="stat-label">trả lời đúng</span></div>
+    <div class="stat"><span class="stat-num" id="p-wrong">0</span><span class="stat-label">câu đang sai</span></div>
+  </div>
+
+  <section class="section">
+    <div class="section-head"><h2>Độ chính xác theo bài</h2><span class="section-meta">Tính trên mọi lượt trả lời</span></div>
+    <div class="bars" id="progress-bars"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Phiên gần đây</h2></div>
+    <div class="list-panel" id="history-list"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Cài đặt</h2></div>
+    <div class="list-panel">
+      <div class="setting-row">
+        <div class="setting-text"><span class="setting-title">Xáo trộn câu hỏi</span><span class="setting-sub">Mỗi lần luyện một thứ tự khác</span></div>
+        <button class="switch" type="button" role="switch" aria-checked="true" data-setting="shuffleQ" aria-label="Xáo trộn câu hỏi"><span></span></button>
+      </div>
+      <div class="setting-row">
+        <div class="setting-text"><span class="setting-title">Xáo trộn đáp án</span><span class="setting-sub">Đổi thứ tự A, B, C, D</span></div>
+        <button class="switch" type="button" role="switch" aria-checked="true" data-setting="shuffleO" aria-label="Xáo trộn đáp án"><span></span></button>
+      </div>
+      <div class="setting-row">
+        <div class="setting-text"><span class="setting-title">Giao diện</span><span class="setting-sub">Theo hệ thống, sáng hoặc tối</span></div>
+        <div class="segmented" role="group" aria-label="Chọn giao diện">
+          <button type="button" data-theme-set="auto">Tự động</button>
+          <button type="button" data-theme-set="light">Sáng</button>
+          <button type="button" data-theme-set="dark">Tối</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <button class="btn reset-btn" type="button" id="reset-btn">Xóa toàn bộ tiến độ</button>
+  <p class="footnote">200 câu hỏi · 7 bài · Dữ liệu lưu cục bộ trên trình duyệt.</p>
+</section>
+</main>
+</div>
+
+<nav class="tabbar" id="tabbar" aria-label="Điều hướng chính">
+  <div class="tabbar-inner">
+    <button class="tab active" type="button" data-view-target="home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m4 11 8-7 8 7"/><path d="M6 9.5V20h12V9.5"/></svg>
+      <span>Trang chủ</span>
+    </button>
+    <button class="tab" type="button" data-view-target="theory">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20"/></svg>
+      <span>Lý thuyết</span>
+    </button>
+    <button class="tab" type="button" data-view-target="progress">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg>
+      <span>Tiến độ</span>
+    </button>
+  </div>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-backdrop" data-modal-cancel></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <h2 id="modal-title"></h2>
+    <p id="modal-text"></p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" type="button" id="modal-cancel">Hủy</button>
+      <button class="btn btn-primary" type="button" id="modal-ok">Đồng ý</button>
+    </div>
+  </div>
+</div>
+
+<script src="data/l1.js"></script>
+<script src="data/l2.js"></script>
+<script src="data/l3.js"></script>
+<script src="data/l4.js"></script>
+<script src="data/l5.js"></script>
+<script src="data/l6.js"></script>
+<script src="data/l8.js"></script>
+<script src="app.js"></script>
