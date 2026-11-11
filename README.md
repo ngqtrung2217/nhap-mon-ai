@@ -1,6 +1,6 @@
 # IT3160 — Luyện trắc nghiệm Nhập môn Trí tuệ nhân tạo
 
-Web app luyện trắc nghiệm mobile-first cho môn IT3160, gồm **200 câu hỏi** chia theo 7 bài đã học: **L1–L6 và L8**.
+Web app luyện trắc nghiệm mobile-first cho môn IT3160, gồm **306 câu hỏi** chia theo 7 bài đã học: **L1–L6 và L8**.
 
 ## Tính năng
 
@@ -21,10 +21,10 @@ style.css       giao diện
 app.js          logic luyện tập, lưu tiến độ bằng localStorage
 data/l1.js      ngân hàng câu hỏi theo bài
 ...
-data/l8.js
+data/l1b.js … data/l8b.js   các câu bổ sung theo bài
 ```
 
-Số câu mỗi bài: L1 30 · L2 32 · L3 34 · L4 27 · L5 10 · L6 21 · L8 46.
+Số câu mỗi bài: L1 45 · L2 47 · L3 49 · L4 42 · L5 25 · L6 36 · L8 62.
 
 ## Chạy local
 
@@ -38,7 +38,7 @@ Hoặc mở trực tiếp `index.html` trong trình duyệt.
 ## Nguồn câu hỏi
 
 - **134 câu** lấy từ file đề cương/tóm tắt ôn tập của môn (Chương 1, Chương 2, Chương 3 — tìm kiếm cơ bản, tìm kiếm có tri thức bổ sung, tìm kiếm đối kháng, thỏa mãn ràng buộc). Đáp án và giải thích được biên soạn cho bản web này.
-- **66 câu** soạn mới: 46 câu cho **L8 – Biểu diễn tri thức** (luật sản xuất, khung, mạng ngữ nghĩa, ontology) và 20 câu vận dụng cho L1–L6.
+- **172 câu** soạn mới: 62 câu cho **L8 – Biểu diễn tri thức** (luật sản xuất, khung, mạng ngữ nghĩa, ontology) và 110 câu bổ sung, vận dụng cho L1–L6.
 
 Nếu thấy câu nào chưa khớp với bài giảng, cứ sửa trực tiếp trong `data/*.js` — mỗi câu là một object:
 

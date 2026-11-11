@@ -162,6 +162,8 @@
     }).join('') : '<div class="empty-note">Chưa có phiên luyện nào. Thử 10 câu ngẫu nhiên ở trang chủ.</div>';
     $$('[data-setting]').forEach(function (b) { b.setAttribute('aria-checked', String(!!state.settings[b.dataset.setting])); });
     $$('[data-theme-set]').forEach(function (b) { b.classList.toggle('active', b.dataset.themeSet === (state.settings.theme || 'auto')); });
+    var totalEl = $('#footnote-total');
+    if (totalEl) totalEl.textContent = String(BANK.length);
   }
 
   function showView(name) {

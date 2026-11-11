@@ -1,0 +1,98 @@
+window.QUIZ_BANK = window.QUIZ_BANK || [];
+window.QUIZ_BANK.push(
+{id:"l1-31",t:"l1",type:"single",
+q:`Công trình nghiên cứu đầu tiên về AI (1943) đề xuất mô hình nơ-ron nhân tạo hai trạng thái on/off là của ai?`,
+o:[`McCulloch và Pitts.`,`Turing và Shannon.`,`Newell và Simon.`,`McCarthy và Minsky.`],
+a:[0],
+e:`McCulloch & Pitts (1943) đề xuất mô hình nơ-ron nhân tạo hai trạng thái, đánh dấu công trình AI đầu tiên.`},
+
+{id:"l1-32",t:"l1",type:"single",
+q:`Bài báo "Computing Machinery and Intelligence" (1950) — nơi lần đầu bàn về trí tuệ máy — do ai viết?`,
+o:[`John McCarthy.`,`Alan Turing.`,`Marvin Minsky.`,`Herbert Simon.`],
+a:[1],
+e:`Turing viết bài này năm 1950, đặt câu hỏi "máy tính có thể suy nghĩ được không?" và đề xuất Imitation Game.`},
+
+{id:"l1-33",t:"l1",type:"single",
+q:`Hội thảo tại Đại học Dartmouth (1956) — được coi là năm khai sinh AI — diễn ra trong bao lâu?`,
+o:[`Một ngày.`,`Một tuần.`,`Hai tháng.`,`Một năm.`],
+a:[2],
+e:`Hội thảo kéo dài khoảng 2 tháng với sự tham gia của các nhà nghiên cứu tiên phong như McCarthy, Minsky, Newell, Simon.`},
+
+{id:"l1-34",t:"l1",type:"single",
+q:`Dự án máy tính thế hệ 5 của Nhật Bản thất bại là một nguyên nhân chính dẫn tới giai đoạn nào?`,
+o:[`Mùa đông AI thứ nhất.`,`Mùa đông AI thứ hai (1987–1993).`,`Giai đoạn bùng nổ hệ chuyên gia.`,`Giai đoạn phát triển học sâu.`],
+a:[1],
+e:`Mùa đông AI lần 2 gắn với thất bại của các dự án AI quy mô lớn, tiêu biểu là dự án máy tính thế hệ 5 của Nhật.`},
+
+{id:"l1-35",t:"l1",type:"single",
+q:`Deep Blue của IBM thắng đại kiện tướng cờ vua thế giới vào năm nào?`,
+o:[`1987`,`1997`,`2005`,`2011`],
+a:[1],
+e:`Năm 1997, Deep Blue thắng đại kiện tướng cờ vua thế giới — cột mốc quan trọng của AI trong trò chơi.`},
+
+{id:"l1-36",t:"l1",type:"single",
+q:`AIBO (Sony, 1999) được giới thiệu là gì?`,
+o:[`Một chú chó cưng robot "học" bằng cách tương tác với môi trường, chủ sở hữu và các AIBO khác.`,
+`Một siêu máy tính chơi cờ.`,
+`Một hệ chuyên gia y tế.`,
+`Một trợ lý ảo trên điện thoại.`],
+a:[0],
+e:`AIBO là robot thú cưng của Sony, học qua tương tác — ví dụ sớm về robot có khả năng thích nghi.`},
+
+{id:"l1-37",t:"l1",type:"single",
+q:`ASIMO (Honda, 2000) là gì?`,
+o:[`Robot hình người có trí thông minh nhân tạo.`,
+`Xe tự lái đầu tiên.`,
+`Chương trình dịch máy.`,
+`Mạng nơ-ron nhận dạng ảnh.`],
+a:[0],
+e:`ASIMO là robot hình người do Honda phát hành năm 2000.`},
+
+{id:"l1-38",t:"l1",type:"single",
+q:`Trợ lý ảo nào của Apple ra mắt năm 2011, đánh dấu việc AI gắn với điện thoại thông minh?`,
+o:[`Cortana.`,`Alexa.`,`Siri.`,`Google Assistant.`],
+a:[2],
+e:`Siri (Apple, 2011) mở đầu giai đoạn trợ lý ảo phổ biến trên điện thoại; Cortana và Alexa ra mắt 2014.`},
+
+{id:"l1-39",t:"l1",type:"single",
+q:`Cortana (Microsoft) và Alexa (Amazon) ra mắt vào năm nào?`,
+o:[`2011`,`2012`,`2014`,`2016`],
+a:[2],
+e:`Cả Cortana và Alexa đều ra mắt năm 2014.`},
+
+{id:"l1-40",t:"l1",type:"single",
+q:`Sophia — robot hình người do Hanson Robotics tạo năm 2016 — được biết đến với danh hiệu gì?`,
+o:[`"Công dân robot" đầu tiên.`,`Robot đầu tiên chơi cờ vây.`,`Trợ lý ảo đầu tiên.`,`Xe tự lái đầu tiên.`],
+a:[0],
+e:`Sophia được cấp quyền công dân (Ả Rập Xê Út) và thường được gọi là "công dân robot" đầu tiên.`},
+
+{id:"l1-41",t:"l1",type:"single",
+q:`Năm 2018, AI xử lý ngôn ngữ của Alibaba vượt trội con người ở bài kiểm tra nào của Stanford?`,
+o:[`Bài kiểm tra đọc hiểu (reading comprehension).`,`Bài kiểm tra lái xe.`,`Bài kiểm tra nhận dạng ảnh.`,`Bài kiểm tra chơi cờ vua.`],
+a:[0],
+e:`AI của Alibaba đạt điểm cao hơn con người trong bài kiểm tra khả năng đọc và hiểu của Stanford.`},
+
+{id:"l1-42",t:"l1",type:"single",
+q:`Phép thử Turing còn được gọi là gì?`,
+o:[`Imitation Game.`,`Chinese Room.`,`Deep Blue Test.`,`Logic Theorist.`],
+a:[0],
+e:`Imitation Game — trò chơi bắt chước — là tên gọi khác của phép thử Turing (1950).`},
+
+{id:"l1-43",t:"l1",type:"multi",pick:2,
+q:`Turing đã đề xuất những thành phần quan trọng nào của TTNT? (Chọn 2 đáp án)`,
+o:[`Tri thức và suy diễn.`,`Hiểu ngôn ngữ và học máy.`,`Thị giác máy tính và điều khiển robot.`,`Tối ưu hóa phần cứng và mạng máy tính.`],
+a:[0,1],
+e:`Turing nêu bốn thành phần nền tảng: tri thức, suy diễn, hiểu ngôn ngữ và học máy.`},
+
+{id:"l1-44",t:"l1",type:"single",
+q:`Ngôn ngữ Lisp (1958) — gắn liền với lịch sử AI — do ai tạo ra?`,
+o:[`John McCarthy.`,`Alan Turing.`,`Arthur Samuel.`,`Ian Goodfellow.`],
+a:[0],
+e:`John McCarthy tạo Lisp năm 1958, ngôn ngữ được dùng rộng rãi trong nghiên cứu AI thời kỳ đầu.`},
+
+{id:"l1-45",t:"l1",type:"single",
+q:`AlphaGo (Google DeepMind) thắng đại kiện tướng cờ vây Lee Sedol vào tháng 3/2016 với tỷ số nào?`,
+o:[`3-0`,`4-1`,`5-0`,`2-3`],
+a:[1],
+e:`AlphaGo thắng Lee Sedol 4-1 sau khi học từ 30 triệu nước đi của con người và tự chơi để cải thiện.`}
+);
