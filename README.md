@@ -6,6 +6,7 @@ Web app luyện trắc nghiệm mobile-first cho môn IT3160, gồm **456 câu h
 
 - **Luyện theo bài**: chọn từng bài (L1, L2, L3, L4, L5, L6, L8) và làm toàn bộ câu của bài đó.
 - **Đề giữa kỳ**: 5 bộ đề 30 câu theo đúng cấu trúc đề thi thật (45 phút, giữ nguyên thứ tự câu và đáp án) — gồm đề gốc 104 và 4 đề luyện biến thể.
+- **Hình vẽ trong câu hỏi**: các câu về cây tìm kiếm và cây Minimax hiển thị hình vẽ SVG (cấu trúc cây, giá trị heuristic, chi phí cạnh) ngay dưới câu hỏi.
 - **Luyện nhanh 10 câu**: trộn đều các bài, ưu tiên câu chưa làm.
 - **Thi thử 20 câu**: có đồng hồ đếm ngược 20 phút, chỉ chấm điểm khi nộp bài.
 - **Ôn câu sai** và **câu đã đánh dấu**.

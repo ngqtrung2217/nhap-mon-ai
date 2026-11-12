@@ -1,5 +1,39 @@
 window.QUIZ_BANK = window.QUIZ_BANK || [];
 window.EXAM_SETS = window.EXAM_SETS || [];
+var FIG_102_TREE = {w:360,h:215,
+  nodes:[
+    {id:"A",x:180,y:24},
+    {id:"B",x:92,y:76},{id:"C",x:180,y:76},{id:"D",x:268,y:76},
+    {id:"E",x:48,y:130},{id:"F",x:126,y:130},{id:"G",x:180,y:130},{id:"H",x:268,y:130},
+    {id:"K",x:48,y:188},{id:"L",x:180,y:188},{id:"M",x:236,y:188},{id:"N",x:300,y:188}
+  ],
+  edges:[
+    {a:"A",b:"B"},{a:"A",b:"C"},{a:"A",b:"D"},
+    {a:"B",b:"E"},{a:"B",b:"F"},{a:"E",b:"K"},
+    {a:"C",b:"G"},{a:"G",b:"L"},
+    {a:"D",b:"H"},{a:"H",b:"M"},{a:"H",b:"N"}
+  ]
+};
+var H_102 = {B:20,C:15,D:5,E:18,F:19,G:10,H:8,K:25,L:12,M:9,N:0};
+var FIG_102_GREEDY = {w:360,h:215,
+  nodes: FIG_102_TREE.nodes.map(function (n) {
+    return {id:n.id,x:n.x,y:n.y,label: H_102[n.id] !== undefined ? n.id + "(" + H_102[n.id] + ")" : n.id};
+  }),
+  edges: FIG_102_TREE.edges
+};
+var FIG_102_MINIMAX = {w:330,h:210,
+  nodes:[
+    {id:"max",x:165,y:26,label:"MAX"},
+    {id:"min1",x:85,y:96,label:"MIN"},{id:"min2",x:245,y:96,label:"MIN"},
+    {id:"l1",x:45,y:170,label:"6"},{id:"l2",x:85,y:170,label:"9"},{id:"l3",x:125,y:170,label:"8"},
+    {id:"l4",x:205,y:170,label:"2"},{id:"l5",x:245,y:170,label:"7"},{id:"l6",x:285,y:170,label:"4"}
+  ],
+  edges:[
+    {a:"max",b:"min1"},{a:"max",b:"min2"},
+    {a:"min1",b:"l1"},{a:"min1",b:"l2"},{a:"min1",b:"l3"},
+    {a:"min2",b:"l4"},{a:"min2",b:"l5"},{a:"min2",b:"l6"}
+  ]
+};
 window.QUIZ_BANK.push(
 {id:"gk102-01",t:"l4",type:"single",
 q:`Trong giải thuật di truyền, hàm thích nghi (fitness function) dùng để:`,
@@ -135,6 +169,7 @@ e:`UCS luôn mở rộng nút có chi phí đường đi g(n) nhỏ nhất nên 
 q:`Cho cây: gốc A có các con B, C, D (trái sang phải); B có con E, F; E có con K; C có con G; G có con L; D có con H; H có con M, N. Thứ tự duyệt DFS (preorder, trái sang phải) là:`,
 o:[`ABEKFCGLDHMN`,`ABCDEFGHKLMN`,`ABEFCGDHKLMN`,`ABEKFCGLDHM`,`ABEFCGLDHKMN`],
 a:[0],
+fig: FIG_102_TREE,
 e:`DFS đi sâu nhất có thể: A → B → E → K → F → C → G → L → D → H → M → N.`},
 
 {id:"gk102-17",t:"l8",type:"single",
@@ -163,6 +198,7 @@ e:`Khi h(n) = 0, f(n) = g(n), A* mở rộng theo chi phí đường đi nhỏ n
 q:`Cây Minimax: nút gốc MAX có hai nút con MIN. Nút MIN bên trái có ba lá 6, 9, 8; nút MIN bên phải có ba lá 2, 7, 4 (xét từ trái sang phải). Nút lá nào bị cắt tỉa đầu tiên khi dùng cắt tỉa Alpha-Beta?`,
 o:[`Nút 2`,`Nút 7`,`Nút 4`,`Nút 6`,`Nút 9`],
 a:[1],
+fig: FIG_102_MINIMAX,
 e:`MIN trái = 6, α = 6. MIN phải xét lá 2 thấy 2 ≤ 6 nên cắt các lá còn lại; lá bị cắt đầu tiên là 7.`},
 
 {id:"gk102-21",t:"l4",type:"single",
@@ -229,6 +265,7 @@ e:`Quần thể ban đầu thường được sinh ngẫu nhiên để đảm b�
 q:`Cho cây: gốc A có ba con B, C, D; B có con E, F; E có con K; C có con G; G có con L; D có con H; H có con M, N. Tập đích là {N}. Chi phí ước lượng: B(20), C(15), D(5), E(18), F(19), G(10), H(8), K(25), L(12), M(9), N(0). Thứ tự các nút được mở rộng bởi tìm kiếm tham lam là:`,
 o:[`ADHN`,`ABEHN`,`ACGLN`,`ADHMN`,`ADN`],
 a:[0],
+fig: FIG_102_GREEDY,
 e:`A → D(5) → H(8) → N(0) là đích: A D H N.`},
 
 {id:"gk102-28",t:"l8",type:"single",

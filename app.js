@@ -55,6 +55,28 @@
   }
   function pickFor(q) { return q.type === 'multi' ? (q.pick || q.a.length) : 1; }
 
+  function figureSvg(fig) {
+    if (!fig || !fig.nodes || !fig.nodes.length) return '';
+    var w = fig.w || 360, h = fig.h || 220;
+    var byId = {};
+    fig.nodes.forEach(function (n) { byId[n.id] = n; });
+    var parts = [];
+    (fig.edges || []).forEach(function (e) {
+      var a = byId[e.a], b = byId[e.b];
+      if (!a || !b) return;
+      parts.push('<line x1="' + a.x + '" y1="' + a.y + '" x2="' + b.x + '" y2="' + b.y + '" stroke="currentColor" stroke-width="1.2"/>');
+      if (e.label) {
+        parts.push('<text class="fig-edge" x="' + ((a.x + b.x) / 2) + '" y="' + ((a.y + b.y) / 2 - 3) + '" text-anchor="middle">' + esc(e.label) + '</text>');
+      }
+    });
+    fig.nodes.forEach(function (n) {
+      var r = n.r || 18;
+      parts.push('<circle cx="' + n.x + '" cy="' + n.y + '" r="' + r + '" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>');
+      parts.push('<text class="fig-label" x="' + n.x + '" y="' + (n.y + 3) + '" text-anchor="middle">' + esc(n.label || n.id) + '</text>');
+    });
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Hình vẽ minh họa của câu hỏi">' + parts.join('') + '</svg>';
+  }
+
   function defaultState() {
     return { stats: {}, wrong: [], marks: [], history: [], settings: { shuffleQ: true, shuffleO: true, theme: 'auto' } };
   }
@@ -346,6 +368,12 @@
     $('#quiz-count').textContent = 'Câu ' + (session.idx + 1) + '/' + session.items.length;
     $('#quiz-chip').textContent = pickFor(q) > 1 ? 'Chọn ' + pickFor(q) + ' đáp án' : 'Một đáp án';
     $('#quiz-question').textContent = q.q;
+    var figEl = $('#quiz-figure');
+    if (figEl) {
+      var svg = figureSvg(q.fig);
+      figEl.innerHTML = svg;
+      figEl.hidden = !svg;
+    }
     $('#quiz-options').innerHTML = item.order.map(function (oi, di) {
       return '<button class="option" type="button" data-i="' + di + '" aria-pressed="false">' +
         '<span class="option-letter">' + optLabel(di) + '</span>' +

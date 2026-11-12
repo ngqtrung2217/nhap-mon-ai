@@ -1,5 +1,32 @@
 window.QUIZ_BANK = window.QUIZ_BANK || [];
 window.EXAM_SETS = window.EXAM_SETS || [];
+var FIG_104_TREE = {w:360,h:215,
+  nodes:[
+    {id:"A",x:180,y:24},
+    {id:"B",x:92,y:76,label:"B(10)"},{id:"C",x:180,y:76,label:"C(20)"},{id:"D",x:268,y:76,label:"D(13)"},
+    {id:"E",x:48,y:130,label:"E(5)"},{id:"F",x:126,y:130,label:"F(10)"},{id:"G",x:180,y:130,label:"G(20)"},{id:"H",x:268,y:130,label:"H(11)"},
+    {id:"K",x:48,y:188,label:"K(0)"},{id:"L",x:180,y:188,label:"L(0)"},{id:"M",x:236,y:188,label:"M(5)"},{id:"N",x:300,y:188,label:"N(0)"}
+  ],
+  edges:[
+    {a:"A",b:"B",label:"40"},{a:"A",b:"C",label:"10"},{a:"A",b:"D",label:"20"},
+    {a:"B",b:"E",label:"5"},{a:"B",b:"F",label:"30"},{a:"E",b:"K",label:"5"},
+    {a:"C",b:"G",label:"5"},{a:"G",b:"L",label:"23"},
+    {a:"D",b:"H",label:"5"},{a:"H",b:"M",label:"20"},{a:"H",b:"N",label:"15"}
+  ]
+};
+var FIG_104_MINIMAX = {w:330,h:210,
+  nodes:[
+    {id:"max",x:165,y:26,label:"MAX"},
+    {id:"min1",x:85,y:96,label:"MIN"},{id:"min2",x:245,y:96,label:"MIN"},
+    {id:"l1",x:45,y:170,label:"5"},{id:"l2",x:85,y:170,label:"6"},{id:"l3",x:125,y:170,label:"4"},
+    {id:"l4",x:205,y:170,label:"3"},{id:"l5",x:245,y:170,label:"7"},{id:"l6",x:285,y:170,label:"5"}
+  ],
+  edges:[
+    {a:"max",b:"min1"},{a:"max",b:"min2"},
+    {a:"min1",b:"l1"},{a:"min1",b:"l2"},{a:"min1",b:"l3"},
+    {a:"min2",b:"l4"},{a:"min2",b:"l5"},{a:"min2",b:"l6"}
+  ]
+};
 window.QUIZ_BANK.push(
 {id:"gk104-01",t:"l4",type:"single",
 q:`Trong giải thuật di truyền, "đột biến" có mục đích gì?`,
@@ -135,6 +162,7 @@ e:`IDS lặp lại các lượt DFS, mà DFS dùng ngăn xếp (stack) để lư
 q:`Cho cây tìm kiếm: gốc A có ba con B, C, D (từ trái sang phải); B có hai con E, F; E có con K; C có con G; G có con L; D có con H; H có con M, N. Tập đích là {L, N}. Thứ tự các nút nào sau đây phù hợp với giải thuật tìm kiếm DLS (giới hạn độ sâu 2, gốc ở mức 0)?`,
 o:[`ABEFCGDH`,`ACGDHL`,`ABEFCGL`,`ABCDEFGHKL`,`ABEFCGDHML`],
 a:[0],
+fig: FIG_104_TREE,
 e:`DLS duyệt như DFS nhưng không mở rộng nút ở mức 3 (K, L, M, N): A → B → E → F → C → G → D → H.`},
 
 {id:"gk104-17",t:"l8",type:"single",
@@ -163,6 +191,7 @@ e:`Với heuristic admissible, A* không bao giờ đánh giá quá cao chi phí
 q:`Cây Minimax: nút gốc MAX có hai nút con MIN. Nút MIN bên trái có ba lá 5, 6, 4; nút MIN bên phải có ba lá 3, 7, 5 (xét từ trái sang phải). Nút lá nào ở hàng dưới cùng bị cắt tỉa đầu tiên khi chạy Minimax có cắt tỉa Alpha-Beta?`,
 o:[`Nút 5`,`Nút 3`,`Nút 7`,`Nút 4`,`Nút 6`],
 a:[2],
+fig: FIG_104_MINIMAX,
 e:`MIN trái = 4, đặt α = 4. MIN phải xét lá 3 thấy β = 3 ≤ α nên cắt các lá còn lại; lá bị cắt đầu tiên là 7.`},
 
 {id:"gk104-21",t:"l4",type:"single",
@@ -217,6 +246,7 @@ e:`Đột biến đưa gen mới vào quần thể, giúp thoát khỏi cực tr
 q:`Cho cây tìm kiếm: gốc A có ba con B, C, D (trái sang phải); B có hai con E, F; E có con K; C có con G; G có con L; D có con H; H có con M, N. Tập đích là {L, N}. Chi phí ước lượng tới đích ghi trong ngoặc: B(10), C(20), D(13), E(5), F(10), G(20), H(11), K(0), L(0), M(5), N(0). Thứ tự các nút được mở rộng bởi tìm kiếm tham lam (greedy best-first) là:`,
 o:[`ABEKFDHN`,`ABEFCGDHML`,`ABCDEFGHKL`,`ABEFCGL`,`ABEFCGDH`],
 a:[0],
+fig: FIG_104_TREE,
 e:`A → B(10) → E(5) → K(0, không phải đích) → F(10) → D(13) → H(11) → N(0) là đích; M(5) không được mở rộng vì N tốt hơn.`},
 
 {id:"gk104-28",t:"l8",type:"single",
