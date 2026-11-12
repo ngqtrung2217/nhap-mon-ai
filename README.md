@@ -8,6 +8,7 @@ Web app luyện trắc nghiệm mobile-first cho môn IT3160, gồm **306 câu h
 - **Luyện nhanh 10 câu**: trộn đều các bài, ưu tiên câu chưa làm.
 - **Thi thử 20 câu**: có đồng hồ đếm ngược 20 phút, chỉ chấm điểm khi nộp bài.
 - **Ôn câu sai** và **câu đã đánh dấu**.
+- **Phím tắt**: bấm `1`–`4` (hoặc `A`–`D`) để chọn đáp án, `Enter` để kiểm tra / sang câu tiếp.
 - Phản hồi ngay sau mỗi câu, kèm **giải thích đáp án**; cuối phiên có bảng điểm, độ chính xác theo bài và danh sách câu cần xem lại.
 - Theo dõi tiến độ: số câu đã làm, độ chính xác, lịch sử các phiên.
 - Giao diện sáng/tối theo hệ thống, xáo trộn câu hỏi và đáp án.

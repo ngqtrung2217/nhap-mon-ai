@@ -37,7 +37,7 @@
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
-  function letter(i) { return String.fromCharCode(65 + i); }
+  function optLabel(i) { return String(i + 1); }
   function setsEqual(a, b) {
     if (!a || !b || a.length !== b.length) return false;
     var A = a.slice().sort(function (x, y) { return x - y; });
@@ -301,7 +301,7 @@
     $('#quiz-question').textContent = q.q;
     $('#quiz-options').innerHTML = item.order.map(function (oi, di) {
       return '<button class="option" type="button" data-i="' + di + '" aria-pressed="false">' +
-        '<span class="option-letter">' + letter(di) + '</span>' +
+        '<span class="option-letter">' + optLabel(di) + '</span>' +
         '<span class="option-text">' + esc(q.o[oi]) + '</span></button>';
     }).join('');
     var fb = $('#quiz-feedback');
@@ -396,8 +396,8 @@
     var item = session.items[session.idx];
     var ans = session.answers[session.idx];
     var fb = $('#quiz-feedback');
-    var your = ans.sel.map(function (i) { return letter(i); }).join(', ');
-    var right = item.ans.map(function (i) { return letter(i); }).join(', ');
+    var your = ans.sel.map(function (i) { return optLabel(i); }).join(', ');
+    var right = item.ans.map(function (i) { return optLabel(i); }).join(', ');
     fb.hidden = false;
     fb.className = 'feedback ' + (ans.ok ? 'good' : 'bad');
     fb.innerHTML = '<div class="feedback-title">' + (ans.ok ? 'Chính xác' : 'Chưa đúng') + '</div>' +
@@ -438,7 +438,15 @@
   function quizAction() {
     if (!session) return;
     if (session.mode === 'practice') {
-      if (isChecked()) advance(); else checkCurrent();
+      if (isChecked()) { advance(); return; }
+      var item = session.items[session.idx];
+      var ans = session.answers[session.idx];
+      var need = pickFor(item.q);
+      if (!ans || ans.sel.length !== need) {
+        toast('Chọn ' + need + ' đáp án trước khi kiểm tra.');
+        return;
+      }
+      checkCurrent();
     } else {
       advance();
     }
@@ -514,8 +522,8 @@
     });
     $('#result-review-count').textContent = wrongItems.length ? wrongItems.length + ' câu' : 'Không có';
     $('#result-review').innerHTML = wrongItems.length ? wrongItems.map(function (x) {
-      var selTxt = x.a && x.a.sel.length ? x.a.sel.map(function (k) { return letter(k); }).join(', ') : 'Chưa trả lời';
-      var ansTxt = x.it.ans.map(function (k) { return letter(k); }).join(', ');
+      var selTxt = x.a && x.a.sel.length ? x.a.sel.map(function (k) { return optLabel(k); }).join(', ') : 'Chưa trả lời';
+      var ansTxt = x.it.ans.map(function (k) { return optLabel(k); }).join(', ');
       return '<article class="review-item"><p class="review-num">Câu ' + (x.i + 1) + '</p>' +
         '<p class="review-q">' + esc(x.it.q.q) + '</p>' +
         '<div class="review-line"><span>Bạn chọn</span><b class="bad-text">' + selTxt + '</b></div>' +
@@ -604,7 +612,32 @@
       if (e.target.matches('[data-modal-cancel]')) closeModal();
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !$('#modal').hidden) closeModal();
+      if (e.key === 'Escape' && !$('#modal').hidden) { closeModal(); return; }
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (!$('#modal').hidden) return;
+      if ($('#view-quiz').hidden || !session) return;
+      var target = e.target;
+      var tag = target && target.tagName ? target.tagName : '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (target && target.isContentEditable)) return;
+      var map = { '1': 0, '2': 1, '3': 2, '4': 3, 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
+      var key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      if (Object.prototype.hasOwnProperty.call(map, key)) {
+        var options = $$('#quiz-options .option');
+        var idx = map[key];
+        if (idx < options.length) {
+          e.preventDefault();
+          toggleOption(idx);
+        }
+        return;
+      }
+      if (e.key === 'Enter') {
+        var ae = document.activeElement;
+        var isOption = ae && ae.classList && ae.classList.contains('option');
+        var isOtherControl = ae && (ae.tagName === 'BUTTON' || ae.tagName === 'A' || ae.tagName === 'SUMMARY') && !isOption;
+        if (isOtherControl) return;
+        e.preventDefault();
+        quizAction();
+      }
     });
     $('#reset-btn').addEventListener('click', function () {
       openConfirm('Xóa toàn bộ tiến độ?', 'Câu đã làm, câu sai, đánh dấu và lịch sử sẽ bị xóa. Không thể hoàn tác.', 'Xóa', function () {
