@@ -1,11 +1,12 @@
 # IT3160 — Luyện trắc nghiệm Nhập môn Trí tuệ nhân tạo
 
-Web app luyện trắc nghiệm mobile-first cho môn IT3160, gồm **456 câu hỏi** chia theo 7 bài đã học: **L1–L6 và L8**, kèm **5 đề giữa kỳ 30 câu**.
+Web app luyện trắc nghiệm mobile-first cho môn IT3160, gồm **516 câu hỏi** chia theo 7 bài đã học: **L1–L6 và L8**, kèm **7 bộ đề 30 câu** (5 đề giữa kỳ + 2 đề nâng cao).
 
 ## Tính năng
 
 - **Luyện theo bài**: chọn từng bài (L1, L2, L3, L4, L5, L6, L8) và làm toàn bộ câu của bài đó.
 - **Đề giữa kỳ**: 5 bộ đề 30 câu theo đúng cấu trúc đề thi thật (45 phút, giữ nguyên thứ tự câu và đáp án) — gồm đề gốc 104 và 4 đề luyện biến thể.
+- **Đề nâng cao**: 2 bộ đề 30 câu khó hơn, chia 2 phần A/B, có câu chọn 2 đáp án và bài toán tính toán (UCS/A*, Minimax, CNF, IDS, GA, CSP) kèm hình vẽ.
 - **Hình vẽ trong câu hỏi**: các câu về cây tìm kiếm và cây Minimax hiển thị hình vẽ SVG (cấu trúc cây, giá trị heuristic, chi phí cạnh) ngay dưới câu hỏi.
 - **Luyện nhanh 10 câu**: trộn đều các bài, ưu tiên câu chưa làm.
 - **Thi thử 20 câu**: có đồng hồ đếm ngược 20 phút, chỉ chấm điểm khi nộp bài.
@@ -28,9 +29,10 @@ data/l1.js      ngân hàng câu hỏi theo bài
 data/l1b.js … data/l8b.js   các câu bổ sung theo bài
 data/gk104.js   đề giữa kỳ gốc (mã 104) — 30 câu
 data/gk101.js … data/gk105.js   4 đề luyện biến thể — 30 câu/đề
+data/gk106.js, data/gk107.js    2 đề nâng cao — 30 câu/đề, 2 phần
 ```
 
-Số câu mỗi bài: L1 55 · L2 67 · L3 69 · L4 82 · L5 35 · L6 36 · L8 112 (tổng 456, gồm 150 câu trong các đề giữa kỳ).
+Số câu mỗi bài: L1 60 · L2 72 · L3 80 · L4 95 · L5 45 · L6 40 · L8 124 (tổng 516, gồm 210 câu trong 7 bộ đề).
 
 ## Chạy local
 
@@ -47,6 +49,7 @@ Hoặc mở trực tiếp `index.html` trong trình duyệt.
 - **172 câu** soạn mới: 62 câu cho **L8 – Biểu diễn tri thức** (luật sản xuất, khung, mạng ngữ nghĩa, ontology) và 110 câu bổ sung, vận dụng cho L1–L6.
 - **30 câu** chép lại từ đề giữa kỳ 2025.2 mã đề 104 (lớp 166157), giữ nguyên thứ tự đáp án như đề in.
 - **120 câu** soạn mới theo đúng cấu trúc đề gốc (4 đề × 30 câu), thay đổi tình huống, số liệu và vị trí đáp án.
+- **60 câu** nâng cao (2 đề × 30 câu): câu hỏi tình huống, câu chọn 2 đáp án, bài toán tính toán có hình vẽ.
 
 Nếu thấy câu nào chưa khớp với bài giảng, cứ sửa trực tiếp trong `data/*.js` — mỗi câu là một object:
 

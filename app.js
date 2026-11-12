@@ -368,6 +368,11 @@
     $('#quiz-count').textContent = 'Câu ' + (session.idx + 1) + '/' + session.items.length;
     $('#quiz-chip').textContent = pickFor(q) > 1 ? 'Chọn ' + pickFor(q) + ' đáp án' : 'Một đáp án';
     $('#quiz-question').textContent = q.q;
+    var secEl = $('#quiz-section');
+    if (secEl) {
+      secEl.textContent = q.sec || '';
+      secEl.hidden = !q.sec;
+    }
     var figEl = $('#quiz-figure');
     if (figEl) {
       var svg = figureSvg(q.fig);

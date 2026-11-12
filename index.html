@@ -28,7 +28,7 @@ try{var _s=JSON.parse(localStorage.getItem('it3160_quiz_v1'));if(_s&&_s.settings
   <div class="hero">
     <p class="eyebrow">Ôn thi · 7 bài · <span id="total-count">0</span> câu</p>
     <h1>Ôn tập theo từng bài.</h1>
-    <p class="lede">Câu hỏi từ đề cương Ch1–Ch3, bổ sung cho L8 – Biểu diễn tri thức. Chọn đáp án, nhận giải thích ngay. Có thêm 5 đề giữa kỳ 30 câu theo đúng cấu trúc đề thi.</p>
+    <p class="lede">Câu hỏi từ đề cương Ch1–Ch3, bổ sung cho L8 – Biểu diễn tri thức. Chọn đáp án, nhận giải thích ngay. Có thêm 7 bộ đề 30 câu: 5 đề giữa kỳ và 2 đề nâng cao.</p>
   </div>
 
   <div class="stats-strip" aria-label="Tiến độ tổng quan">
@@ -53,7 +53,7 @@ try{var _s=JSON.parse(localStorage.getItem('it3160_quiz_v1'));if(_s&&_s.settings
   </section>
 
   <section class="section">
-    <div class="section-head"><h2>Đề giữa kỳ</h2><span class="section-meta">30 câu · 45 phút · giữ nguyên thứ tự</span></div>
+    <div class="section-head"><h2>Bộ đề thi</h2><span class="section-meta">30 câu · 45 phút · giữa kỳ &amp; nâng cao</span></div>
     <div class="list-panel" id="exam-list"></div>
   </section>
 
@@ -103,6 +103,7 @@ try{var _s=JSON.parse(localStorage.getItem('it3160_quiz_v1'));if(_s&&_s.settings
   </div>
   <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="quiz-progress"></div></div>
   <div class="quiz-body">
+    <p class="quiz-section" id="quiz-section" hidden></p>
     <span class="chip" id="quiz-chip">Một đáp án</span>
     <h2 class="question" id="quiz-question"></h2>
     <div class="quiz-figure" id="quiz-figure" hidden></div>
@@ -268,6 +269,8 @@ try{var _s=JSON.parse(localStorage.getItem('it3160_quiz_v1'));if(_s&&_s.settings
 <script src="data/gk102.js"></script>
 <script src="data/gk103.js"></script>
 <script src="data/gk105.js"></script>
+<script src="data/gk106.js"></script>
+<script src="data/gk107.js"></script>
 <script src="theory/l1.js"></script>
 <script src="theory/l2.js"></script>
 <script src="theory/l3.js"></script>
