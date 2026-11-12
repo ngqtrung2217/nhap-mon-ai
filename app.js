@@ -191,7 +191,7 @@
     $('#tabbar').hidden = !chrome;
     $$('#tabbar .tab').forEach(function (b) { b.classList.toggle('active', b.dataset.viewTarget === name); });
     if (name === 'home') renderHome();
-    if (name === 'theory') renderTheory();
+    if (name === 'theory' && !$('#theory-list').children.length) renderTheory();
     if (name === 'progress') renderProgress();
     window.scrollTo(0, 0);
   }
