@@ -166,6 +166,23 @@
     if (totalEl) totalEl.textContent = String(BANK.length);
   }
 
+  function renderTheory() {
+    var host = $('#theory-list');
+    if (!host) return;
+    var sections = window.THEORY || [];
+    if (!sections.length) {
+      host.innerHTML = '<div class="empty-note">Chưa tải được nội dung lý thuyết.</div>';
+      return;
+    }
+    host.innerHTML = sections.map(function (sec, i) {
+      return '<details class="theory-card"' + (i === 0 ? ' open' : '') + '>' +
+        '<summary><span class="topic-code">' + esc(sec.code) + '</span>' +
+        '<span class="summary-text"><span class="summary-title">' + esc(sec.title) + '</span>' +
+        '<span class="summary-sub">' + esc(sec.sub) + '</span></span>' + CHEVRON + '</summary>' +
+        '<div class="theory-body">' + sec.body + '</div></details>';
+    }).join('');
+  }
+
   function showView(name) {
     $$('.view').forEach(function (v) { v.hidden = v.id !== 'view-' + name; });
     $('#app').dataset.view = name;
@@ -174,6 +191,7 @@
     $('#tabbar').hidden = !chrome;
     $$('#tabbar .tab').forEach(function (b) { b.classList.toggle('active', b.dataset.viewTarget === name); });
     if (name === 'home') renderHome();
+    if (name === 'theory') renderTheory();
     if (name === 'progress') renderProgress();
     window.scrollTo(0, 0);
   }
@@ -655,6 +673,7 @@
       $('#total-count').textContent = '0';
       return;
     }
+    renderTheory();
     showView('home');
   }
 

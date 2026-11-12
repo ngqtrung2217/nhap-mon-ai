@@ -276,8 +276,8 @@ h1{font-size:24px; line-height:1.25; font-weight:700; text-wrap:balance}
 .theory-body .formula{margin-top:8px; padding:8px 10px; background:var(--surface-2); border-radius:6px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11.5px; overflow-x:auto; white-space:nowrap}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.92em; background:var(--surface-2); padding:1px 4px; border-radius:4px}
 .table-wrap{overflow-x:auto; margin-top:8px; border:1px solid var(--line); border-radius:6px}
-table{border-collapse:collapse; width:100%; font-size:11px; min-width:430px}
-th,td{padding:6px 8px; text-align:left; border-bottom:1px solid var(--line); white-space:nowrap}
+table{border-collapse:collapse; width:100%; font-size:11px; min-width:0}
+th,td{padding:6px 8px; text-align:left; border-bottom:1px solid var(--line); white-space:normal; overflow-wrap:break-word; word-break:normal; vertical-align:top}
 th{background:var(--surface-2); font-weight:600}
 tr:last-child td{border-bottom:0}
 .stats-strip.four{grid-template-columns:repeat(4,1fr)}
@@ -331,3 +331,11 @@ tr:last-child td{border-bottom:0}
 .kbd-hint .key{display:inline-block; min-width:19px; padding:1px 5px; border:1px solid var(--line-strong); border-bottom-width:2px; border-radius:4px; background:var(--surface); color:var(--muted); font-size:10.5px; font-weight:600; line-height:1.4}
 .kbd-hint .sep{margin:0 2px}
 @media (hover:hover) and (pointer:fine){.kbd-hint{display:block}}
+.theory-body h3{margin:16px 0 6px; font-size:14.5px; font-weight:700; line-height:1.35}
+.theory-body h3:first-child{margin-top:0}
+.theory-body h4{margin:12px 0 5px; font-size:13.5px; font-weight:600}
+.theory-body ol{margin:0 0 10px; padding-left:20px; display:flex; flex-direction:column; gap:5px}
+.theory-body ol li::marker{color:var(--accent); font-weight:600}
+
+.table-wrap.wide table{min-width:520px}
+.table-wrap.wide th,.table-wrap.wide td{white-space:nowrap; word-break:normal}
