@@ -140,6 +140,21 @@
           '<span class="meter"><span class="meter-fill" style="width:' + pct + '%"></span></span>' +
         '</span>' + CHEVRON + '</button>';
     }).join('');
+    var examHost = $('#exam-list');
+    if (examHost) {
+      var sets = (window.EXAM_SETS || []).filter(function (s) {
+        return s && s.id && s.ids && s.ids.length;
+      });
+      examHost.innerHTML = sets.map(function (s) {
+        var n = s.ids.filter(function (qid) { return BY_ID.has(qid); }).length;
+        return '<button class="topic-row" type="button" data-exam="' + esc(s.id) + '">' +
+          '<span class="topic-code">' + esc(s.code) + '</span>' +
+          '<span class="topic-info">' +
+            '<span class="topic-name"><span>' + esc(s.name) + '</span><span class="topic-count">' + n + ' câu</span></span>' +
+            '<span class="topic-sub">' + esc(s.sub || '30 câu · 45 phút') + '</span>' +
+          '</span>' + CHEVRON + '</button>';
+      }).join('');
+    }
   }
 
   function renderProgress() {
@@ -224,8 +239,11 @@
   function startSession(qs, opts) {
     if (!qs.length) { toast('Chưa có câu hỏi phù hợp.'); return; }
     if (session && session.timerId) { clearInterval(session.timerId); }
+    var fixed = !!opts.fixed;
     session = {
-      items: qs.map(buildItem),
+      items: qs.map(fixed ? function (q) {
+        return { q: q, order: q.o.map(function (_, i) { return i; }), ans: q.a.slice() };
+      } : buildItem),
       idx: 0,
       answers: new Array(qs.length).fill(null),
       mode: opts.mode || 'practice',
@@ -251,6 +269,17 @@
   function startExam() {
     var qs = shuffle(BANK.slice()).slice(0, Math.min(20, BANK.length));
     startSession(qs, { mode: 'exam', title: 'Thi thử 20 câu', limit: 20 * 60 });
+  }
+  function startExamSet(id) {
+    var sets = window.EXAM_SETS || [];
+    var set = null;
+    for (var i = 0; i < sets.length; i++) {
+      if (sets[i].id === id) { set = sets[i]; break; }
+    }
+    if (!set) return;
+    var qs = set.ids.map(function (qid) { return BY_ID.get(qid); }).filter(Boolean);
+    if (!qs.length) { toast('Đề chưa có câu hỏi.'); return; }
+    startSession(qs, { mode: 'exam', title: set.code + ' · ' + set.name, limit: 45 * 60, fixed: true });
   }
   function startTopic(id) {
     var t = TOPIC_BY_ID[id];
@@ -589,6 +618,8 @@
       }
       var topic = e.target.closest('[data-topic]');
       if (topic) { startTopic(topic.dataset.topic); return; }
+      var examSet = e.target.closest('[data-exam]');
+      if (examSet) { startExamSet(examSet.dataset.exam); return; }
       var sw = e.target.closest('[data-setting]');
       if (sw) {
         var key = sw.dataset.setting;
@@ -637,7 +668,7 @@
       var target = e.target;
       var tag = target && target.tagName ? target.tagName : '';
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (target && target.isContentEditable)) return;
-      var map = { '1': 0, '2': 1, '3': 2, '4': 3, 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
+      var map = { '1': 0, '2': 1, '3': 2, '4': 3, '5': 4, 'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4 };
       var key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
       if (Object.prototype.hasOwnProperty.call(map, key)) {
         var options = $$('#quiz-options .option');

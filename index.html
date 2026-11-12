@@ -28,7 +28,7 @@ try{var _s=JSON.parse(localStorage.getItem('it3160_quiz_v1'));if(_s&&_s.settings
   <div class="hero">
     <p class="eyebrow">Ôn thi · 7 bài · <span id="total-count">0</span> câu</p>
     <h1>Ôn tập theo từng bài.</h1>
-    <p class="lede">Câu hỏi từ đề cương Ch1–Ch3, bổ sung cho L8 – Biểu diễn tri thức. Chọn đáp án, nhận giải thích ngay.</p>
+    <p class="lede">Câu hỏi từ đề cương Ch1–Ch3, bổ sung cho L8 – Biểu diễn tri thức. Chọn đáp án, nhận giải thích ngay. Có thêm 5 đề giữa kỳ 30 câu theo đúng cấu trúc đề thi.</p>
   </div>
 
   <div class="stats-strip" aria-label="Tiến độ tổng quan">
@@ -50,6 +50,11 @@ try{var _s=JSON.parse(localStorage.getItem('it3160_quiz_v1'));if(_s&&_s.settings
   <section class="section">
     <div class="section-head"><h2>Luyện theo bài</h2><span class="section-meta">Chọn một bài để bắt đầu</span></div>
     <div class="list-panel" id="topic-list"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Đề giữa kỳ</h2><span class="section-meta">30 câu · 45 phút · giữ nguyên thứ tự</span></div>
+    <div class="list-panel" id="exam-list"></div>
   </section>
 
   <section class="section">
@@ -207,7 +212,7 @@ try{var _s=JSON.parse(localStorage.getItem('it3160_quiz_v1'));if(_s&&_s.settings
   </section>
 
   <button class="btn reset-btn" type="button" id="reset-btn">Xóa toàn bộ tiến độ</button>
-  <p class="footnote"><span id="footnote-total">306</span> câu hỏi · 7 bài · Dữ liệu lưu cục bộ trên trình duyệt.</p>
+  <p class="footnote"><span id="footnote-total">456</span> câu hỏi · 7 bài · 5 đề giữa kỳ · Dữ liệu lưu cục bộ trên trình duyệt.</p>
 </section>
 </main>
 </div>
@@ -257,6 +262,11 @@ try{var _s=JSON.parse(localStorage.getItem('it3160_quiz_v1'));if(_s&&_s.settings
 <script src="data/l6b.js"></script>
 <script src="data/l8.js"></script>
 <script src="data/l8b.js"></script>
+<script src="data/gk104.js"></script>
+<script src="data/gk101.js"></script>
+<script src="data/gk102.js"></script>
+<script src="data/gk103.js"></script>
+<script src="data/gk105.js"></script>
 <script src="theory/l1.js"></script>
 <script src="theory/l2.js"></script>
 <script src="theory/l3.js"></script>
